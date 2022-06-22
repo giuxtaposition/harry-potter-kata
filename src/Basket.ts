@@ -2,10 +2,10 @@ import { Book } from "./types/Book"
 
 export class Basket {
     private books: number[] = [0, 0, 0, 0, 0]
-    private discount: number[] = [0, 1, 0.95, 0.9, 0.8]
+    private discount: number[] = [0, 1, 0.95, 0.9, 0.8, 0.75]
 
     public add(book: Book) {
-        this.books[book] += 1
+        this.books[--book] += 1
     }
 
     public totalPrice() {
