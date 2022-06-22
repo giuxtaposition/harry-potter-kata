@@ -11,20 +11,22 @@ export class Basket {
     public totalPrice() {
         const booksBought = this.books.filter(book => book > 0)
 
+        const uniqueNumbers = booksBought.filter(
+            (book, index, self) => self.indexOf(book) === index
+        )
+
         if (booksBought.length === 1) {
             return booksBought[0] * 8
         }
 
-        const lowestBook = Math.min(...booksBought)
+        return uniqueNumbers.reduce((acc, number) => {
+            const volumesWithNumber = booksBought.filter(
+                book => book >= number
+            ).length
 
-        return (
-            booksBought.length * 8 * this.discount[booksBought.length] +
-            booksBought.reduce((acc, book) => {
-                if (booksBought.length === 1) {
-                    return acc + book * 8
-                }
-                return acc + (book - lowestBook) * 8
-            }, 0)
-        )
+            return (
+                acc + volumesWithNumber * 8 * this.discount[volumesWithNumber]
+            )
+        }, 0)
     }
 }

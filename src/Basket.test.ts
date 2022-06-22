@@ -76,4 +76,14 @@ describe("Harry Potter Kata tests", () => {
 
         expect(basket.totalPrice()).toEqual(5 * 8 * 0.75)
     })
+
+    test("handle multiple discounts", () => {
+        basket.add(Book.First)
+        basket.add(Book.First)
+        basket.add(Book.Second)
+        basket.add(Book.Second)
+        basket.add(Book.Third)
+
+        expect(basket.totalPrice()).toEqual(3 * 8 * 0.9 + 2 * 8 * 0.95)
+    })
 })
