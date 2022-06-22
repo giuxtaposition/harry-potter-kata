@@ -2,6 +2,7 @@ import { Book } from "./types/Book"
 
 export class Basket {
     private books: number[] = [0, 0, 0, 0, 0]
+    private discount: number[] = [0, 1, 0.95, 0.9]
 
     public add(book: Book) {
         this.books[book] += 1
@@ -14,17 +15,16 @@ export class Basket {
             return booksBought[0] * 8
         }
 
-        if (booksBought.length === 2) {
-            const lowestBook = Math.min(...booksBought)
+        const lowestBook = Math.min(...booksBought)
 
-            return (
-                booksBought.length * 8 * 0.95 +
-                booksBought.reduce((acc, book) => {
-                    return acc + (book - lowestBook) * 8
-                }, 0)
-            )
-        }
-
-        return 0
+        return (
+            booksBought.length * 8 * this.discount[booksBought.length] +
+            booksBought.reduce((acc, book) => {
+                if (booksBought.length === 1) {
+                    return acc + book * 8
+                }
+                return acc + (book - lowestBook) * 8
+            }, 0)
+        )
     }
 }

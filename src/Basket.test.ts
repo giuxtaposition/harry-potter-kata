@@ -40,4 +40,21 @@ describe("Harry Potter Kata tests", () => {
 
         expect(basket.totalPrice()).toEqual(2 * 8 * 0.95 + 1 * 8)
     })
+
+    test("10% discount, add three different books", () => {
+        basket.add(Book.First)
+        basket.add(Book.Second)
+        basket.add(Book.Third)
+
+        expect(basket.totalPrice()).toEqual(3 * 8 * 0.9)
+    })
+
+    test("10% discount, add three different books and one of the same", () => {
+        basket.add(Book.First)
+        basket.add(Book.Second)
+        basket.add(Book.Third)
+        basket.add(Book.Third)
+
+        expect(basket.totalPrice()).toEqual(3 * 8 * 0.9 + 1 * 8)
+    })
 })
